@@ -10,7 +10,7 @@ import streamlit as st
 
 def train_logistic_model():
     # โหลดข้อมูล
-    df = pd.read_csv(r'Data_set/netflix_users_bad_model.csv' , nrows=200)
+    df = pd.read_csv(r'Data_set/netflix_users_bad_model.csv' , nrows=1000)
 
     # ลบค่าที่ Country ผิดปกติ
     df = df[df['Country'].apply(lambda x: isinstance(x, str) and x.isalpha())]

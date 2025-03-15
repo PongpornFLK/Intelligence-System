@@ -7,7 +7,7 @@ from sklearn.metrics import accuracy_score
 
 def load_and_train_model():
     # โหลดข้อมูล
-    netflix_df = pd.read_csv(r'Data_set\netflix_users_bad_model.csv')
+    netflix_df = pd.read_csv(r'Data_set\netflix_users_bad_model.csv' , nrows=1000)
     
     # 1. แก้ค่าที่ผิดปกติในคอลัมน์ 'Country'
     netflix_df = netflix_df[~netflix_df['Country'].isin([0, '123214', '()&*_)+'])]  # ลบแถวที่ Country มีค่าผิดปกติ
