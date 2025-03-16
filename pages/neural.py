@@ -85,6 +85,7 @@ try:
     #แปลงข้อมูล
         X_test = df_test_cleaned
         X_test_scaled = scaler.transform(X_test)
+        df_test["Starting_Salary"].fillna(df_test["Starting_Salary"].mean(), inplace=True)
         y_test = np.log1p(df_test["Starting_Salary"])
     
         y_pred = model.predict(X_test_scaled)
@@ -115,11 +116,14 @@ try:
 
         st.pyplot(fig)
         st.success("✅ โมเดล Train เสร็จเรียบร้อย! 🚀")
+        
 
     # ตรวจสอบและลบแถวที่มี NaN ใน y_test และ y_pred
         mask = ~np.isnan(y_test) & ~np.isnan(y_pred.flatten())  # สร้าง mask กรองค่า NaN
         y_test_cleaned = y_test[mask]
         y_pred_cleaned = y_pred.flatten()[mask]
+        st.write(f"✅ ขนาดของ `y_test_cleaned`: {y_test_cleaned.shape}")
+        st.write(f"✅ ขนาดของ `y_pred_cleaned`: {y_pred_cleaned.shape}")
 
 
     # คำนวณค่า MSE, MAE, R², RMSE, MAPE และอื่น ๆ
