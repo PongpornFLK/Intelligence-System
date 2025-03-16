@@ -79,6 +79,3 @@ watchdog
 Werkzeug                     
 wheel                        
 wrapt                        
-pickle
-os
-re
