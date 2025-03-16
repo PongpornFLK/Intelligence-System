@@ -40,20 +40,11 @@ def load_neural_model():
     X = df[feature_columns]
     y = np.log1p(df["Starting_Salary"])  # ใช้ Log Transform ลดความเบ้ของข้อมูล
     
-    # เช็คว่า X และ y มีค่า NaN หรือไม่
-    if X.isnull().any().any() or y.isnull().any():
-        print("❌ พบ NaN ใน X หรือ y")
-        return
     
     # ลบแถวที่มี NaN ในทั้ง X และ y พร้อมกัน
     df_clean = pd.concat([X, y], axis=1).dropna() 
     X_clean = df_clean[feature_columns] 
     y_clean = df_clean["Starting_Salary"]  
-    
-    # ตรวจสอบขนาดของ X และ y
-    if X_clean.shape[0] != y_clean.shape[0]:
-        print(f"❌ ขนาดของ X และ y ไม่เท่ากัน! X: {X_clean.shape[0]}, y: {y_clean.shape[0]}")
-        return
     
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X_clean)  # ใช้ X_clean ที่ทำความสะอาดแล้ว
