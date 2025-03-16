@@ -120,7 +120,7 @@ try:
         
     # แสดงผลลัพธ์การประเมินโมเดล
 
-        st.write(f"🔹 **Test Loss (MSE): ** 0.1346")
+        st.write(f"🔹 **Test Loss (MSE):** 0.1346")
         st.write(f"🔹 **Mean Absolute Error (MAE):** 0.2502")
         st.write(f"🔹 **Mean Squared Error (MSE):** 0.1346")
         st.write(f"🔹 **Root Mean Squared Error (RMSE):** 0.3669")
