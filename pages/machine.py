@@ -8,29 +8,28 @@ from TrainModel.logis_regres import train_logistic_model
 from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression
 
-st.title("🧠 Model")
-st.write("Loading and training the model...")
+st.title("🧠 Machine Learning Model")
+with st.spinner("🔄 Loading and Training Model"):
+    # เรียกใช้ฟังก์ชันฝึกโมเดล
+    model, accuracy, X_test, y_test = load_and_train_model()
+    st.success("**Model trained successfully!**")
+    st.write("Model Accuracy: ", accuracy)
 
-# เรียกใช้ฟังก์ชันฝึกโมเดล
-model, accuracy, X_test, y_test = load_and_train_model()
-st.success("**Model trained successfully!**")
-st.write("Model Accuracy: ", accuracy)
+    # ทำนายผลกับชุดทดสอบ
+    y_pred = model.predict(X_test)
 
-# ทำนายผลกับชุดทดสอบ
-y_pred = model.predict(X_test)
+    # คำนวณ confusion matrix
+    cm = confusion_matrix(y_test, y_pred)
 
-# คำนวณ confusion matrix
-cm = confusion_matrix(y_test, y_pred)
+    # สร้างกราฟ heatmap สำหรับ confusion matrix
+    st.subheader("Random Forest")
+    fig, ax = plt.subplots()
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax)
+    ax.set_xlabel("Predicted")
+    ax.set_ylabel("Actual")
+    ax.set_title("Confusion Matrix")
 
-# สร้างกราฟ heatmap สำหรับ confusion matrix
-st.subheader("Random Forest")
-fig, ax = plt.subplots()
-sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax)
-ax.set_xlabel("Predicted")
-ax.set_ylabel("Actual")
-ax.set_title("Confusion Matrix")
-
-st.pyplot(fig)
+    st.pyplot(fig)
 
 
 # ---------------------------------------------- Logistic Regression ---------------------------------------------- #
