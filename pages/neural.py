@@ -116,48 +116,7 @@ try:
 
         st.pyplot(fig)
         st.success("✅ โมเดล Train เสร็จเรียบร้อย! 🚀")
-        st.write(f"🔍 ค่า NaN ใน `y_pred`: {np.isnan(y_pred).sum()}")
-        st.write(f"✅ ตรวจสอบ `y_test` หลังเติมค่า NaN:\n{y_test.head(10)}")
-        st.write(f"🔍 ค่า NaN ใน `df_test['Starting_Salary']`: {df_test['Starting_Salary'].isna().sum()}")
-        st.write(f"🔍 ขนาดของ `df_test['Starting_Salary']`: {df_test['Starting_Salary'].shape}")
-        
 
-    # ตรวจสอบและลบแถวที่มี NaN ใน y_test และ y_pred
-        y_test_cleaned = y_test[~np.isnan(y_test)] 
-        y_pred_cleaned = y_pred[~np.isnan(y_test)]
-
-
-
-    # คำนวณค่า MSE, MAE, R², RMSE, MAPE และอื่น ๆ
-        test_loss = model.evaluate(X_test_scaled, y_test_cleaned, verbose=0)[0]
-        mse = mean_squared_error(y_test_cleaned, y_pred_cleaned)
-        mae = mean_absolute_error(y_test_cleaned, y_pred_cleaned)
-        r2 = r2_score(y_test_cleaned, y_pred_cleaned)
-        rmse = np.sqrt(mse)
-        mape = mean_absolute_percentage_error(y_test_cleaned, y_pred_cleaned)
-
-        col1 , col2 = st.columns(2)
-        
-    # แสดงผลลัพธ์การประเมินโมเดล
-        st.markdown("### 📊 Evaluating Model Performance")
-
-        with col1:
-            st.write(f"🔹 **Test Loss (MSE):** {test_loss:.4f}")
-            st.write(f"🔹 **Mean Absolute Error (MAE):** {mae:.4f}")
-            st.write(f"🔹 **Mean Squared Error (MSE):** {mse:.4f}")
-        with col2:
-            st.write(f"🔹 **Root Mean Squared Error (RMSE):** {rmse:.4f}")
-            st.write(f"🔹 **Mean Absolute % Error (MAPE):** {mape:.4f}")
-            st.write(f"🔹 **R² Score (R2):** {r2:.4f}")
-
-
-
-        df_metrics = pd.DataFrame({
-            "Metric": ["Test Loss (MSE)", "Mean Absolute Error (MAE)", "Mean Squared Error (MSE)",
-                           "Root Mean Squared Error (RMSE)", "Mean Absolute Percentage Error (MAPE)", "R² Score (R2)"],
-            "Value": [test_loss, mae, mse, rmse, mape, r2]
-        })
-        st.dataframe(df_metrics)
         
 except Exception as e:
     st.error(f"{str(e)}")
