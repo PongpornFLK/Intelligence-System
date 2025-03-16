@@ -116,15 +116,15 @@ try:
 
         st.pyplot(fig)
         st.success("✅ โมเดล Train เสร็จเรียบร้อย! 🚀")
+        st.write(f"🔍 ค่า NaN ใน `y_pred`: {np.isnan(y_pred).sum()}")
         st.write(f"✅ ตรวจสอบ `y_test` หลังเติมค่า NaN:\n{y_test.head(10)}")
         st.write(f"🔍 ค่า NaN ใน `df_test['Starting_Salary']`: {df_test['Starting_Salary'].isna().sum()}")
         st.write(f"🔍 ขนาดของ `df_test['Starting_Salary']`: {df_test['Starting_Salary'].shape}")
         
 
     # ตรวจสอบและลบแถวที่มี NaN ใน y_test และ y_pred
-        mask = ~np.isnan(y_test) & ~np.isnan(y_pred.flatten())  # สร้าง mask กรองค่า NaN
-        y_test_cleaned = y_test[mask]
-        y_pred_cleaned = y_pred.flatten()[mask]
+        y_test_cleaned = y_test[~np.isnan(y_test)] 
+        y_pred_cleaned = y_pred[~np.isnan(y_test)]
 
 
 
