@@ -71,6 +71,12 @@ st.success("**Logistic Regression Model trained successfully!**")
 st.write("*** แต่ทดสอบด้วยข้อมูลที่มีขนาดเล็กเพียง 1000 แถวเท่านั้น ***")
 st.write("Accuracy: ", accuracy_lr)
 
+# ทำนายผลกับชุดทดสอบ
+y_pred_lr = logistic_model.predict(X_test_lr)
+y_pred_proba_lr = logistic_model.predict_proba(X_test_lr)[:, 1]
+
+
+
 # ใช้เฉพาะ Feature
 X_feature = X_test_lr[:, 0].reshape(-1, 1)  # ใช้เฉพาะ Age (Feature ที่ 1)
 
