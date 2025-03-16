@@ -7,28 +7,26 @@ import numpy as np
 import pickle
 import os
 
-# 📌 กำหนด Paths ของไฟล์ที่ต้องบันทึก
 MODEL_DIR = "TrainModel"
 SCALER_PATH = os.path.join(MODEL_DIR, "scaler.pkl")
 COLUMNS_PATH = os.path.join(MODEL_DIR, "train_columns.pkl")
 MODEL_PATH = os.path.join(MODEL_DIR, "load_model.h5")
 HISTORY_PATH = os.path.join(MODEL_DIR, "load_history.pkl")
 
-# ✅ ตรวจสอบและสร้างโฟลเดอร์ถ้ายังไม่มี
 os.makedirs(MODEL_DIR, exist_ok=True)
 
 def load_neural_model():
 
     df = pd.read_csv(r'Data_set/education_career__model.csv')
     
-    df = df.dropna()  # ลบแถวที่มีค่า NaN ทิ้ง    
+# Data Cleaning
+    df = df.dropna()
+    df = df[(df["Starting_Salary"] > 5000) & (df["Starting_Salary"] < 200000)] # ลบเงินเดือนที่ผิดปกติ
 
-    df = df[(df["Starting_Salary"] > 5000) & (df["Starting_Salary"] < 200000)]
-
-    for col in df.select_dtypes(include=["float64", "int64"]).columns:
+    for col in df.select_dtypes(include=["float64", "int64"]).columns: # จัดการคอลัมน์ที่เป็นตัวเลข
         df[col].fillna(df[col].mean(), inplace=True)
     
-    for col in df.select_dtypes(include=["object"]).columns:
+    for col in df.select_dtypes(include=["object"]).columns: # จัดการคอลัมน์ที่เป็นประเภท
         df[col].fillna(df[col].mode()[0], inplace=True)
 
     categorical_cols = df.select_dtypes(include=['object']).columns.tolist()
@@ -46,10 +44,11 @@ def load_neural_model():
     if X.isnull().any().any() or y.isnull().any():
         print("❌ พบ NaN ใน X หรือ y")
         return
+    
     # ลบแถวที่มี NaN ในทั้ง X และ y พร้อมกัน
-    df_clean = pd.concat([X, y], axis=1).dropna()  # รวม X และ y แล้วลบแถวที่มี NaN
-    X_clean = df_clean[feature_columns]  # X หลังจากลบ NaN
-    y_clean = df_clean["Starting_Salary"]  # y หลังจากลบ NaN
+    df_clean = pd.concat([X, y], axis=1).dropna() 
+    X_clean = df_clean[feature_columns] 
+    y_clean = df_clean["Starting_Salary"]  
     
     # ตรวจสอบขนาดของ X และ y
     if X_clean.shape[0] != y_clean.shape[0]:
@@ -64,6 +63,7 @@ def load_neural_model():
         
     X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_clean, test_size=0.2, random_state=42)
 
+#Create model
     model = keras.Sequential([
         keras.layers.Dense(256, activation='relu', input_shape=(X_train.shape[1],)),
         keras.layers.BatchNormalization(),
@@ -82,7 +82,8 @@ def load_neural_model():
 
         keras.layers.Dense(1)  # Output Layer สำหรับ Regression
     ])
-
+    
+#Compile model
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001),
                   loss='mse',
                   metrics=['mae'])
@@ -96,6 +97,7 @@ def load_neural_model():
                         callbacks=[early_stopping, reduce_lr],
                         verbose=1)
 
+#Save model and history
     model.save(MODEL_PATH)
     with open(HISTORY_PATH, "wb") as f:
         pickle.dump(history.history, f)

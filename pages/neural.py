@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 from TrainModel.mlp import load_neural_model
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, mean_absolute_percentage_error
 
-# 📌 กำหนด Paths ของไฟล์ที่ต้องใช้
 MODEL_DIR = "TrainModel"
 MODEL_PATH = os.path.join(MODEL_DIR, "load_model.h5")
 SCALER_PATH = os.path.join(MODEL_DIR, "scaler.pkl")
@@ -19,53 +18,48 @@ HISTORY_PATH = os.path.join(MODEL_DIR, "load_history.pkl")
 st.title("📊 Neural Network Model")
 st.subheader("ผลลัพธ์จากการ Train โมเดล")
 
-# 🚀 ตรวจสอบว่ามีโมเดลหรือไม่ ถ้าไม่มีให้ Train ใหม่
 if not os.path.exists(MODEL_PATH) or not os.path.exists(HISTORY_PATH):
     st.warning("⏳ กำลัง Train ข้อมูล... โปรดรอสักครู่ 🚀")
     load_neural_model()  # Train อัตโนมัติ
     st.success("✅ โมเดล Train เสร็จแล้ว!")
 
-# ✅ โหลดโมเดลที่ฝึกเสร็จแล้ว
+#โหลดโมเดลที่ฝึกเสร็จแล้ว
 model = keras.models.load_model(MODEL_PATH, custom_objects={"mse": keras.losses.MeanSquaredError()})
 model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001),
               loss='mse',
               metrics=['mae'])
 
-# ✅ โหลดประวัติการ Train
+#โหลดประวัติการ Train
 with open(HISTORY_PATH, "rb") as f:
     history = pickle.load(f)
 
-# 🚀 1️⃣ แสดงโครงสร้างของโมเดล
+#แสดงโครงสร้างของโมเดล
 st.markdown("### 🔧 โครงสร้างของโมเดล")
-stringlist = []  # ประกาศแค่ครั้งเดียว
+stringlist = []  
 model.summary(print_fn=lambda x: stringlist.append(x))
 
-# แสดงโครงสร้างในรูปแบบที่อ่านง่าย
 st.markdown("```\n" + "\n".join(stringlist) + "\n```")
-
-# ใช้ Regular Expression จับข้อมูลจาก model.summary
 pattern = r"(\S+)\s+(\S+)\s+(\([\d, None]+\))\s+([\d,]+)"
 summary_data = []
 
-for line in stringlist[1:-4]:  # ข้ามหัวและท้าย
+for line in stringlist[1:-4]:  
     match = re.match(pattern, line)
     if match:
         summary_data.append(match.groups())
 
-# 🚀 2️⃣ โหลดข้อมูลทดสอบ
 st.markdown("### 🎯 ตัวอย่างการทำนายจาก Test Set")
 try:
     with st.spinner("🔄 Loading and Training Model"):
         df_test = pd.read_csv(r'Data_set/education_career_bad_model.csv')
 
-        # ✅ เตรียมข้อมูล (Data Cleaning)
+    #เตรียมข้อมูล (Data Cleaning)
         df_test_cleaned = df_test.drop(columns=["Student_ID", "Unnamed: 11"], errors="ignore")
         for col in df_test_cleaned.select_dtypes(include=["float64", "int64"]).columns:
             df_test_cleaned[col] = df_test_cleaned[col].fillna(df_test_cleaned[col].mean())
         for col in df_test_cleaned.select_dtypes(include=["object"]).columns:
             df_test_cleaned[col] = df_test_cleaned[col].fillna(df_test_cleaned[col].mode()[0])
 
-        # ✅ โหลด Training Columns
+    #โหลด Training Columns
         if os.path.exists(COLUMNS_PATH):
             with open(COLUMNS_PATH, "rb") as f:
                 train_columns = pickle.load(f)
@@ -79,7 +73,7 @@ try:
             st.error("❌ ไม่พบไฟล์ train_columns.pkl กรุณา Train โมเดลก่อน")
             st.stop()
 
-        # ✅ โหลด Scaler
+    #โหลด Scaler
         if os.path.exists(SCALER_PATH):
             with open(SCALER_PATH, "rb") as f:
                 scaler = pickle.load(f)
@@ -88,34 +82,30 @@ try:
             st.error("❌ ไม่พบไฟล์ scaler.pkl กรุณา Train โมเดลก่อน")
             st.stop()
 
-        # ✅ แปลงข้อมูล
+    #แปลงข้อมูล
         X_test = df_test_cleaned
         X_test_scaled = scaler.transform(X_test)
         y_test = np.log1p(df_test["Starting_Salary"])
-
-        # ✅ ทำนายผล
+    
         y_pred = model.predict(X_test_scaled)
-
-        # ✅ แสดงค่าจริงและค่าที่ทำนาย
+        
         df_results = pd.DataFrame({
             "ค่าจริง (Actual Salary)": y_test.values[:10],
             "ค่าที่ทำนาย (Predicted Salary)": np.round(y_pred[:10].flatten(), 2)
         })
         st.dataframe(df_results)
 
-        # 🚀 3️⃣ วาดกราฟ Loss & MAE จาก Training
+    #กราฟ Loss & MAE จาก Training
         st.markdown("### 📈 กราฟ Training Loss & MAE")
         fig, ax = plt.subplots(1, 2, figsize=(12, 4))
-
-        # ✅ กราฟ Loss
+        
         ax[0].plot(history["loss"], label="Train Loss")
         ax[0].plot(history["val_loss"], label="Validation Loss")
         ax[0].set_title("Training & Validation Loss")
         ax[0].set_xlabel("Epochs")
         ax[0].set_ylabel("Loss")
         ax[0].legend()
-
-        # ✅ กราฟ MAE
+    
         ax[1].plot(history["mae"], label="Train MAE")
         ax[1].plot(history["val_mae"], label="Validation MAE")
         ax[1].set_title("Training & Validation MAE")
@@ -126,12 +116,12 @@ try:
         st.pyplot(fig)
         st.success("✅ โมเดล Train เสร็จเรียบร้อย! 🚀")
 
-        # ตรวจสอบและลบแถวที่มี NaN ใน y_test และ y_pred
-        y_test_cleaned = y_test[~np.isnan(y_test)]  # ลบค่า NaN ใน y_test
-        y_pred_cleaned = y_pred[~np.isnan(y_test)]  # ลบค่า NaN ใน y_pred
+    # ตรวจสอบและลบแถวที่มี NaN ใน y_test และ y_pred
+        y_test_cleaned = y_test[~np.isnan(y_test)] 
+        y_pred_cleaned = y_pred[~np.isnan(y_test)]  
 
 
-        # คำนวณค่า MSE, MAE, R², RMSE, MAPE และอื่น ๆ
+    # คำนวณค่า MSE, MAE, R², RMSE, MAPE และอื่น ๆ
         test_loss = model.evaluate(X_test_scaled, y_test_cleaned, verbose=0)[0]
         mse = mean_squared_error(y_test_cleaned, y_pred_cleaned)
         mae = mean_absolute_error(y_test_cleaned, y_pred_cleaned)
@@ -140,7 +130,8 @@ try:
         mape = mean_absolute_percentage_error(y_test_cleaned, y_pred_cleaned)
 
         col1 , col2 = st.columns(2)
-        # แสดงผลลัพธ์การประเมินโมเดล
+        
+    # แสดงผลลัพธ์การประเมินโมเดล
         st.markdown("### 📊 Evaluating Model Performance")
 
         with col1:
@@ -160,7 +151,8 @@ try:
             "Value": [test_loss, mae, mse, rmse, mape, r2]
         })
         st.dataframe(df_metrics)
+        
 except Exception as e:
-    st.error(f"❌ เกิดข้อผิดพลาด: {str(e)}")
+    st.error(f"{str(e)}")
 
 

@@ -6,12 +6,9 @@ st.subheader("แนวทางการพัฒนาด้วย Neural Netw
 
 st.link_button("🔗 Dataset" , "https://www.kaggle.com/datasets/adilshamim8/education-and-career-success")
 
-# แสดงรายละเอียดของ Dataset
 csv_path = "./Data_set/education_career_bad_model.csv"
 df = pd.read_csv(csv_path)
 st.write(df.head(5))
-
-
 
 st.markdown("**:blue[1. การเตรียมข้อมูล :red[(] Data Preparation :red[)]]**" )
 st.write("- ลบแถวที่มีค่า NaN ออกจาก DataFrame , ลบแถวที่มีค่าผิดปกติในคอลัมน์ 'Starting_Salary'", unsafe_allow_html=True) 

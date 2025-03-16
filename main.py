@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 main_page = st.Page(page = "pages/overview.py"  , title = "Pongporn Yampradit", icon = ":material/play_arrow:", default=True)
 guideline_machine = st.Page(page = "pages/guideline_machine.py"  , title = "Guideline Machine Learning", icon = ":material/play_arrow:")
 guideline_neural = st.Page(page = "pages/guideline_neural.py"  , title = "Guideline Neural Network", icon = ":material/play_arrow:")

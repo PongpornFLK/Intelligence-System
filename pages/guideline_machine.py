@@ -9,8 +9,6 @@ st.subheader("แนวทางการพัฒนาโมเดลแบบ
 
 st.link_button("🔗 Dataset" , "https://www.kaggle.com/datasets/adilshamim8/education-and-career-success")
 
-
-# แสดงรายละเอียดของ Dataset
 csv_path = "./Data_set/netflix_users_bad_model.csv"
 df = pd.read_csv(csv_path)
 st.write(df.head(5)) 
