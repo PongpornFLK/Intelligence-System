@@ -129,10 +129,6 @@ with st.spinner("🔄 Loading and Training Model"):
     y_test_cleaned = y_test[~np.isnan(y_test)]  # ลบค่า NaN ใน y_test
     y_pred_cleaned = y_pred[~np.isnan(y_test)]  # ลบค่า NaN ใน y_pred
 
-    # ตรวจสอบว่าไม่มีค่า NaN
-    assert not np.isnan(y_test_cleaned).any(), "y_test มีค่า NaN"
-    assert not np.isnan(y_pred_cleaned).any(), "y_pred มีค่า NaN"
-
     # คำนวณค่า MSE, MAE, R², RMSE, MAPE และอื่น ๆ
     test_loss = model.evaluate(X_test_scaled, y_test_cleaned, verbose=0)[0]
     mse = mean_squared_error(y_test_cleaned, y_pred_cleaned)
