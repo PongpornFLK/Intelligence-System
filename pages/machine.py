@@ -71,26 +71,6 @@ st.success("**Logistic Regression Model trained successfully!**")
 st.write("*** แต่ทดสอบด้วยข้อมูลที่มีขนาดเล็กเพียง 1000 แถวเท่านั้น ***")
 st.write("Accuracy: ", accuracy_lr)
 
-# ทำนายผลกับชุดทดสอบ
-y_pred_lr = logistic_model.predict(X_test_lr)
-y_pred_proba_lr = logistic_model.predict_proba(X_test_lr)[:, 1]
-
-# คำนวณค่า Metric ต่างๆ
-accuracy_lr = np.mean(y_pred_lr == y_test_lr)
-precision_lr = precision_score(y_test_lr, y_pred_lr, average='weighted')
-recall_lr = recall_score(y_test_lr, y_pred_lr, average='weighted')
-f1_lr = f1_score(y_test_lr, y_pred_lr, average='weighted')
-
-# แสดงผลลัพธ์ของโมเดล
-st.write("🎯 **Model Performance Metrics**")
-metrics_data_lr = {
-    "Metric": ["Accuracy", "Precision", "Recall", "F1-score"],
-    "Value": [f"{accuracy_lr:.4f}", f"{precision_lr:.4f}", f"{recall_lr:.4f}", f"{f1_lr:.4f}"]
-}
-
-df_metrics_lr = pd.DataFrame(metrics_data_lr)
-col1, col2, col3, col4 = st.columns(4)
-
 # ใช้เฉพาะ Feature
 X_feature = X_test_lr[:, 0].reshape(-1, 1)  # ใช้เฉพาะ Age (Feature ที่ 1)
 
