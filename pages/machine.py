@@ -3,9 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
-from TrainModel.random_forest import load_and_train_model
 from TrainModel.logis_regres import train_logistic_model
-from sklearn.metrics import confusion_matrix
+from TrainModel.random_forest import load_and_train_model
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
 from sklearn.linear_model import LogisticRegression
 
 st.title("🧠 Machine Learning Model")
@@ -14,10 +14,32 @@ with st.spinner("🔄 Loading and Training Model"):
 # เรียกใช้ฟังก์ชันฝึกโมเดล
     model, accuracy, X_test, y_test = load_and_train_model()
     st.success("**Model trained successfully!**")
-    st.write("Model Accuracy: ", accuracy)
+    st.write("Accuracy: ", accuracy)
 
     # ทำนายผลกับชุดทดสอบ
     y_pred = model.predict(X_test)
+    y_pred_proba = model.predict_proba(X_test)[:, 1]
+    
+    # คำนวณค่า Metric ต่างๆ
+    precision = precision_score(y_test, y_pred, average='weighted')
+    recall = recall_score(y_test, y_pred, average='weighted')
+    f1 = f1_score(y_test, y_pred, average='weighted')
+
+    # แสดงผลลัพธ์ของโมเดล
+    st.write("🎯 **Model Performance Metrics**")
+    metrics_data = {
+    "Metric": ["Accuracy", "Precision", "Recall", "F1-score"],
+    "Value": [f"{accuracy:.4f}", f"{precision:.4f}", f"{recall:.4f}", f"{f1:.4f}"]
+    }
+
+    df_metrics = pd.DataFrame(metrics_data)
+    col1, col2, col3, col4 = st.columns(4)
+
+    # แสดงค่าแต่ละ metric
+    col1.metric("Accuracy", f"{accuracy:.4f}")
+    col2.metric("Precision", f"{precision:.4f}")
+    col3.metric("Recall", f"{recall:.4f}")
+    col4.metric("F1-score", f"{f1:.4f}")
 
     # คำนวณ confusion matrix
     cm = confusion_matrix(y_test, y_pred)
@@ -31,7 +53,15 @@ with st.spinner("🔄 Loading and Training Model"):
     ax.set_title("Confusion Matrix")
 
     st.pyplot(fig)
-
+# แสดงตารางผลลัพธ์ ของ Dataset เมื่อได้รับการทำนายจากโมเดล
+    st.text("Dataset with Predictions")
+    df_results = pd.DataFrame({
+        "Actual": y_test,
+        "Predicted": y_pred,
+        "Predicted Probability": y_pred_proba
+    })
+    st.write(df_results)
+    
 
 # ---------------------------------------------- Logistic Regression ---------------------------------------------- #
 st.subheader("Logistic Regression")
