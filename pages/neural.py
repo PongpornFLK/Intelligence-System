@@ -90,10 +90,11 @@ try:
     
         y_pred = model.predict(X_test_scaled)
         
-        df_results = pd.DataFrame({
-            "ค่าจริง (Actual Salary)": y_test.values[:10],
-            "ค่าทำนาย (Predicted Salary)": y_pred.flatten()[:10]})
-        st.dataframe(df_results)
+    #Feature , TargetMatrix
+        st.write("Feature Matrix")
+        st.write(X_test[:10])
+        st.write("Target Matrix")
+        st.write(y_test[:10])
 
     #กราฟ Loss & MAE จาก Training
         st.markdown("### 📈 กราฟ Training Loss & MAE")
