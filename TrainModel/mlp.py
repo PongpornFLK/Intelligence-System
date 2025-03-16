@@ -33,7 +33,7 @@ def load_neural_model():
 
     categorical_cols = df.select_dtypes(include=['object']).columns.tolist()
     df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
-    df = df.copy() 
+    df.dropna(inplace=True)
 
     feature_columns = df.drop(columns=["Starting_Salary"]).columns.tolist()
     with open(COLUMNS_PATH, "wb") as f:
