@@ -19,12 +19,7 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 
 def load_neural_model():
 
-    data_path = "Data_set/education_career__model.csv"
-    if not os.path.exists(data_path):
-        print(f"❌ ไม่พบไฟล์ {data_path}")
-        return
-    
-    df = pd.read_csv(data_path)
+    df = pd.read_csv(r'Data_set/education_career__model.csv' , nrows=1000)
     
     df = df.dropna()  # ลบแถวที่มีค่า NaN ทิ้ง    
 
