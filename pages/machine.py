@@ -68,7 +68,18 @@ st.subheader("Logistic Regression")
 
 logistic_model, accuracy_lr, X_test_lr, y_test_lr = train_logistic_model()
 st.success("**Logistic Regression Model trained successfully!**")
-st.write("Model Accuracy: ", accuracy_lr)
+st.write("*** แต่ทดสอบด้วยข้อมูลที่มีขนาดเล็กเพียง 1000 แถวเท่านั้น ***")
+st.write("Accuracy: ", accuracy_lr)
+
+# ทำนายผลกับชุดทดสอบ
+y_pred_lr = logistic_model.predict(X_test_lr)
+y_pred_proba_lr = logistic_model.predict_proba(X_test_lr)[:, 1]
+
+# คำนวณค่า Metric ต่างๆ
+accuracy_lr = np.mean(y_pred_lr == y_test_lr)
+precision_lr = precision_score(y_test_lr, y_pred_lr, average='weighted')
+recall_lr = recall_score(y_test_lr, y_pred_lr, average='weighted')
+f1_lr = f1_score(y_test_lr, y_pred_lr, average='weighted')
 
 # ใช้เฉพาะ Feature
 X_feature = X_test_lr[:, 0].reshape(-1, 1)  # ใช้เฉพาะ Age (Feature ที่ 1)
@@ -86,3 +97,13 @@ ax.set_ylabel("Probability")
 ax.legend()
 
 st.pyplot(fig)
+
+#  ทำนายผลลัพธ์ 
+st.text("Dataset with Predictions")
+df_results_lr = pd.DataFrame({
+    "Actual": y_test_lr,
+    "Predicted": y_pred_lr,
+    "Predicted Probability": y_pred_proba_lr
+})
+st.write(df_results_lr)
+
