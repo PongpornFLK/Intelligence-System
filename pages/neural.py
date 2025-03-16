@@ -117,8 +117,13 @@ try:
         st.success("✅ โมเดล Train เสร็จเรียบร้อย! 🚀")
 
     # ตรวจสอบและลบแถวที่มี NaN ใน y_test และ y_pred
-        y_test_cleaned = y_test[~np.isnan(y_test)] 
-        y_pred_cleaned = y_pred[~np.isnan(y_test)]  
+        mask = ~np.isnan(y_test) & ~np.isnan(y_pred.flatten())  # สร้าง mask กรองค่า NaN
+        y_test_cleaned = y_test[mask]
+        y_pred_cleaned = y_pred.flatten()[mask]
+        # ตรวจสอบ NaN ใน y_test และ y_pred
+        if np.isnan(y_test_cleaned).any() or np.isnan(y_pred_cleaned).any():
+            st.error("❌ พบค่า NaN ใน y_test หรือ y_pred")
+            st.stop()
 
 
     # คำนวณค่า MSE, MAE, R², RMSE, MAPE และอื่น ๆ
