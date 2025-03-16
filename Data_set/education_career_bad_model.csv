@@ -2,12 +2,12 @@ Student_ID,Age,Gender,High_School_GPA,SAT_Score,University_Ranking,University_GP
 S00001,24,Male,3.58,1052,291,3.96,Arts,27200,Entry,No
 S00002,21,Other,2.52,1211,112,3.63,Law,25000,Mid,No
 S00003,28,Female,3.42,1193,715,2.63,Medicine,42400,Entry,No
-S00004,25,Male,2.43,1497,170,2.81,Computer Science,57400,Mid,No
-S00005,22,Male,2.08,1012,599,2.48,Engineering,47600,,No
+S00004,25,Male,2.43,1497,170,2.81,Computer Science,57400,Entry,No
+S00005,22,Male,2.08,1012,599,2.48,Engineering,47600,Entry,No
 S00006,24,Male,2.4,1600,631,3.78,Law,68400,Entry,Yes
 S00007,27,Male,2.36,1011,610,3.83,Computer Science,55500,Mid,No
 S00008,20,Male,2.68,1074,240,2.84,Computer Science,38000,Entry,No
-S00009,24,,2.84,1201,337,3.31,Business,68900,Entry,No
+S00009,24,Male,2.84,1201,337,3.31,Business,68900,Entry,No
 S00010,28,Male,3.02,1415,138,2.33,Computer Science,58900,Senior,No
 S00011,28,Female,2.95,1120,594,2.87,Mathematics,26300,Entry,No
 S00012,25,Female,2.54,1070,236,3.26,Law,35100,Mid,1
@@ -24,20 +24,20 @@ S00022,29,Male,3.39,964,483,4,Business,37400,Senior,No
 S00023,23,Female,2.41,1217,401,3.18,Engineering,69500,Senior,1
 S00024,19,Female,2.88,1245,201,3.36,Medicine,48100,Mid,No
 S00025,29,Female,2.13,1531,292,3.36,Engineering,63900,Mid,No
-S00026,22,,3.65,1142,342,3.69,Medicine,48100,Entry,No
+S00026,22,1,3.65,1142,342,3.69,Medicine,48100,Entry,No
 S00027,18,Female,2.25,1036,991,2.02,Arts,44600,Entry,No
 S00028,29,Female,3.81,1146,610,2.44,Engineering,41000,,No
 S00029,27,Male,3.73,space,216,3.33,Medicine,50300,Mid,No
 S00030,23,Female,2.93,944,636,3.79,Mathematics,38300,Executive,0
 S00031,29,Female,3.49,1557,585,3.37,Engineering,49500,Senior,No
 S00032,26,Female,3.24,1587,366,2.83,Business,41500,Entry,No
-S00033,18,Male,3.61,1453,,2.72,Engineering,29800,Mid,cat
+S00033,18,Male,3.61,1453,23,2.72,Engineering,29800,Mid,cat
 S00034,28,Male,200,988,642,3.48,Law,44600,Entry,No
 S00035,28,Female,3.57,1127,469,3.48,Engineering,25000,9999,Yes
 S00036,27,Female,2.92,1190,418,,Medicine,70300,Entry,No
 S00037,29,Female,3.88,1321,27,2.58,Engineering,57500,Executive,No
 S00038,29,0,2.97,966,677,3.85,Arts,43000,Entry,No
-S00039,20,Female,2.93,1150,,3.1,Computer Science,25000,Entry,Yes
+S00039,20,Female,2.93,1150,1,3.1,Computer Science,25000,Entry,Yes
 S00040,29,1,3.57,940,918,3.58,Business,50200,Entry,Yes
 S00041,24,Female,3.64,998,580,2.43,Law,53400,Mid,No
 S00042,21,Female,3.11,1205,14,2.69,Mathematics,56300,Entry,
@@ -52,19 +52,19 @@ S00050,24,Male,3.29,1300,759,3.85,Law,52000,Mid,No
 S00051,19,Male,3.66,1376,624,3.14,Computer Science,42000,Senior,No
 S00052,21,Male,2.1,1021,207,2.21,Arts,52100,Senior,No
 S00053,26,Female,3.7,976,864,2.39,Law,64500,Mid,Yes
-S00054,29,Female,3.1,,846,4,Arts,63500,Executive,No
+S00054,29,Female,3.1,23,846,4,Arts,63500,Executive,No
 S00055,19,Male,2.39,1011,233,2.39,Mathematics,67200,Entry,No
 S00056,27,Male,2.63,1581,573,3.22,Law,40600,Senior,Yes
 S00057,200,Female,2.56,1417,597,2.84,Medicine,50900,Entry,No
 S00058,27,Male,3.06,1096,695,3.77,Computer Science,82700,Entry,No
-S00059,22,,2.1,997,239,3.51,Computer Science,35400,Senior,No
+S00059,22,1,2.1,997,239,3.51,Computer Science,35400,Senior,No
 S00060,19,Female,2.32,1358,250,3.19,Business,48300,Entry,No
 S00061,21,Female,3.63,1129,583,2.02,Law,31800,Entry,No
 S00062,29,Male,2.27,1067,740,3.76,Engineering,51600,Entry,No
 S00063,29,Female,100,907,597,2.89,Computer Science,65600,Entry,No
 S00064,24,Male,2.91,1071,306,3.86,Law,75700,Entry,Yes
 S00065,29,Female,3.03,1259,1000,2.99,Engineering,35000,Entry,No
-S00066,25,Female,3.53,,908,3.39,Business,37600,Mid,No
+S00066,25,Female,3.53,1,908,3.39,Business,37600,Mid,No
 S00067,20,Male,2.89,1168,463,2.14,Mathematics,73700,Mid,Yes
 S00068,18,Male,3.58,918,783,3.49,Mathematics,25000,Mid,No
 S00069,21,Male,3.24,1253,913,2.68,Law,40400,Entry,No
@@ -89,13 +89,13 @@ S00087,29,Male,3.95,901,962,2.15,Arts,40600,Senior,No
 S00088,26,Female,2.67,1111,748,2.7,Computer Science,42700,Senior,No
 S00089,25,Male,3.19,1479,572,2.45,Law,62100,Senior,No
 S00090,22,Female,2.18,1539,24,3.44,Business,38100,Senior,Yes
-S00091,19,Male,340,high,988,2.98,,62300,Senior,No
+S00091,19,Male,340,high,988,2.98,1,62300,Senior,No
 S00092,22,Female,2.18,923,22,3.5,Law,33300,Senior,No
 S00093,25,Female,3.92,1267,428,3.03,Arts,80600,Entry,No
 S00094,27,Male,3.43,1405,32,2.17,Mathematics,79900,Entry,No
 S00095,26,Female,3.58,1075,863,3.47,Business,39000,Mid,Yes
 S00096,29,Other,3.41,1328,339,3.67,Mathematics,50900,Entry,No
-S00097,222,Female,3.18,1341,947,3.81,,51800,Entry,No
+S00097,222,Female,3.18,1341,947,3.81,23,51800,Entry,No
 S00098,29,Female,2.9,1447,981,3.14,Law,48000,Mid,No
 S00099,26,Male,3.72,1413,515,3.51,Engineering,35000,Mid,Yes
 S00100,18,Female,3.91,1260,512,3.5,Engineering,51600,Mid,No
