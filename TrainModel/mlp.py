@@ -19,7 +19,7 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 
 def load_neural_model():
 
-    df = pd.read_csv(r'Data_set/education_career__model.csv' , nrows=1000)
+    df = pd.read_csv(r'Data_set/education_career__model.csv')
     
     df = df.dropna()  # ลบแถวที่มีค่า NaN ทิ้ง    
 
