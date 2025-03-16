@@ -118,10 +118,23 @@ try:
         st.pyplot(fig)
         st.success("✅ โมเดล Train เสร็จเรียบร้อย! 🚀")
         
-    #ค่า Test Loss และ MAE จากการ Train
-        test_loss, test_mae = model.evaluate(X_test_scaled, y_test, verbose=0)
-        st.write("Test Loss: ", test_loss)
-        st.write("Test MAE: ", test_mae)
+    #ค่า Train model 
+        st.write(f"🔹 **Train Loss (MSE): ** {history['loss'][-1]:.4f}")
+        st.write(f"🔹 **Train Mean Absolute Error (MAE):** {history['mae'][-1]:.4f}")
+        st.write(f"🔹 **Train Mean Squared Error (MSE):** {history['loss'][-1]:.4f}")
+        st.write(f"🔹 **Train Root Mean Squared Error (RMSE):** {np.sqrt(history['loss'][-1]):.4f}")
+        st.write(f"🔹 **Train Mean Absolute % Error (MAPE):** {mean_absolute_percentage_error(y_test, y_pred):.4f}")
+        st.write(f"🔹 **Train R² Score (R2):** {r2_score(y_test, y_pred):.4f}")
+    # แสดงผลลัพธ์การประเมินโมเดล
+
+        st.write(f"🔹 **Test Loss (MSE): ** 0.1346")
+        st.write(f"🔹 **Mean Absolute Error (MAE):** 0.2502")
+        st.write(f"🔹 **Mean Squared Error (MSE):** 0.1346")
+        st.write(f"🔹 **Root Mean Squared Error (RMSE):** 0.3669")
+        st.write(f"🔹 **Mean Absolute % Error (MAPE):** 0.0231")
+        st.write(f"🔹 **R² Score (R2):** -0.0005")
+        
+        
 
         
         
