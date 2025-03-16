@@ -13,6 +13,9 @@ csv_path = "./Data_set/netflix_users_bad_model.csv"
 df = pd.read_csv(csv_path)
 st.write(df.head(5)) 
 
+# Feature in Dataset
+st.write("📊 **Features in Dataset**")
+st.write(df.columns.tolist())
 
 st.markdown("**:blue[1. การเตรียมข้อมูล :red[(] Data Preparation :red[)]]**" )
 st.write("- เริ่มจากการนำเข้า Dataset ที่จะใช้พัฒนาโมเดล ในที่นี้ใช้ไฟล์ netflix_users_bad_model.csv โดยมีปัญหาข้อมูลไม่สมบูรณ์หรือมีข้อผิดพลาด เพื่อนำมาวิเคราะห์", unsafe_allow_html=True) 

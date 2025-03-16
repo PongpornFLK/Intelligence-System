@@ -97,7 +97,8 @@ try:
         st.write(y_test[:10])
 
     #กราฟ Loss & MAE จาก Training
-        st.markdown("### 📈 กราฟ Training Loss & MAE")
+        st.markdown("### 📈 กราฟ Training Loss & MAE")        
+        
         fig, ax = plt.subplots(1, 2, figsize=(12, 4))
         
         ax[0].plot(history["loss"], label="Train Loss")
@@ -116,6 +117,12 @@ try:
 
         st.pyplot(fig)
         st.success("✅ โมเดล Train เสร็จเรียบร้อย! 🚀")
+        
+    #ค่า Test Loss และ MAE จากการ Train
+        test_loss, test_mae = model.evaluate(X_test_scaled, y_test, verbose=0)
+        st.write("Test Loss: ", test_loss)
+        st.write("Test MAE: ", test_mae)
+
         
         
 
