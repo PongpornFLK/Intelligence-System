@@ -118,13 +118,6 @@ try:
         st.pyplot(fig)
         st.success("✅ โมเดล Train เสร็จเรียบร้อย! 🚀")
         
-    #ค่า Train model 
-        st.write(f"🔹 **Train Loss (MSE): ** {history['loss'][-1]:.4f}")
-        st.write(f"🔹 **Train Mean Absolute Error (MAE):** {history['mae'][-1]:.4f}")
-        st.write(f"🔹 **Train Mean Squared Error (MSE):** {history['loss'][-1]:.4f}")
-        st.write(f"🔹 **Train Root Mean Squared Error (RMSE):** {np.sqrt(history['loss'][-1]):.4f}")
-        st.write(f"🔹 **Train Mean Absolute % Error (MAPE):** {mean_absolute_percentage_error(y_test, y_pred):.4f}")
-        st.write(f"🔹 **Train R² Score (R2):** {r2_score(y_test, y_pred):.4f}")
     # แสดงผลลัพธ์การประเมินโมเดล
 
         st.write(f"🔹 **Test Loss (MSE): ** 0.1346")
