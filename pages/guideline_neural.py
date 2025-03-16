@@ -10,6 +10,11 @@ csv_path = "./Data_set/education_career_bad_model.csv"
 df = pd.read_csv(csv_path)
 st.write(df.head(5))
 
+# Feature in Dataset
+st.write("📊 **Features in Dataset**")
+st.write(df.columns.tolist())
+
+
 st.markdown("**:blue[1. การเตรียมข้อมูล :red[(] Data Preparation :red[)]]**" )
 st.write("- ลบแถวที่มีค่า NaN ออกจาก DataFrame , ลบแถวที่มีค่าผิดปกติในคอลัมน์ 'Starting_Salary'", unsafe_allow_html=True) 
 st.code("""
@@ -107,4 +112,8 @@ st.write(f"🔹 **Mean Absolute Percentage Error (MAPE):** {mape:.4f}")
 st.write("**ดังนั้น** Neural Network ที่พัฒนาขึ้นสามารถใช้ในการจำแนกประเภทผู้ใช้ Netflix ได้อย่างมีประสิทธิภาพ พร้อมทั้งใช้เทคนิค Regularization เพื่อลด Overfitting และเพิ่มความแม่นยำ", unsafe_allow_html=True)
 
 
+
+st.subheader("แหล่งข้อมูล" )
+st.write("- [Website baeldung](https://www.baeldung.com/cs/mlp-vs-dnn)")
+st.write("- [Greeksforgeeks](https://www.geeksforgeeks.org/multi-layer-perceptron-learning-in-tensorflow/)")
 

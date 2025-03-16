@@ -92,8 +92,7 @@ try:
         
         df_results = pd.DataFrame({
             "ค่าจริง (Actual Salary)": y_test.values[:10],
-            "ค่าที่ทำนาย (Predicted Salary)": np.round(y_pred[:10].flatten(), 2)
-        })
+            "ค่าทำนาย (Predicted Salary)": y_pred.flatten()[:10]})
         st.dataframe(df_results)
 
     #กราฟ Loss & MAE จาก Training
@@ -116,6 +115,8 @@ try:
 
         st.pyplot(fig)
         st.success("✅ โมเดล Train เสร็จเรียบร้อย! 🚀")
+        
+        
 
         
 except Exception as e:

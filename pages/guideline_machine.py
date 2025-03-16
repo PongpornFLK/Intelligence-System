@@ -143,7 +143,13 @@ accuracy = accuracy_score(y_test, y_pred)
 return model, accuracy, X_test, y_test
 """)
 
-
+st.subheader("แหล่งข้อมูล" )
+st.markdown("**:red[Random Forest]**" )
+st.write("- [Medium.com](https://medium.com/@pradyasin/random-forest-%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3-74d2a0af3d7)")
+st.write("- [Greeksforgeeks](https://www.geeksforgeeks.org/random-forest-algorithm-in-machine-learning/)")
+st.markdown("**:red[Logistic Regression]**" )
+st.write("- [Medium.com](https://datascihaeng.medium.com/data-science-model-03-d06385d789f7)")
+st.write("- [Greeksforgeeks](https://www.geeksforgeeks.org/understanding-logistic-regression/)")
 
 
 
